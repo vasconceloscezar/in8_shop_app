@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../size_config.dart';
 import 'home_header.dart';
-import 'popular_product.dart';
+import 'product_list.dart';
 
 class Body extends StatelessWidget {
   const Body({super.key});
@@ -17,7 +17,7 @@ class Body extends StatelessWidget {
             const HomeHeader(),
             SizedBox(height: getProportionateScreenWidth(10)),
             SizedBox(height: getProportionateScreenWidth(30)),
-            PopularProducts(),
+            const ProductsList(),
             SizedBox(height: getProportionateScreenWidth(30)),
           ],
         ),

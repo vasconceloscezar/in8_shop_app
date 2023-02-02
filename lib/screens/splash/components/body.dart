@@ -1,6 +1,6 @@
+import 'package:e_commerce_app/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce_app/constants.dart';
-import 'package:e_commerce_app/screens/sign_in/sign_in_screen.dart';
 import 'package:e_commerce_app/size_config.dart';
 
 // This is the best practice
@@ -16,16 +16,15 @@ class _BodyState extends State<Body> {
   int currentPage = 0;
   List<Map<String, String>> splashData = [
     {
-      "text": "Welcome to Tokoto, Let’s shop!",
+      "text": "Bem vindo a IN8 Shop, venha descobrir mais!",
       "image": "assets/images/splash_1.png"
     },
     {
-      "text":
-          "We help people conect with store \naround United State of America",
+      "text": "Nós conectamos logistas com clientes \npor todo Brasil.",
       "image": "assets/images/splash_2.png"
     },
     {
-      "text": "We show the easy way to shop. \nJust stay at home with us",
+      "text": "Um jeito fácil de comprar. \nDo conforto de sua casa.",
       "image": "assets/images/splash_3.png"
     },
   ];
@@ -58,7 +57,7 @@ class _BodyState extends State<Body> {
                     horizontal: getProportionateScreenWidth(20)),
                 child: Column(
                   children: <Widget>[
-                    Spacer(),
+                    const Spacer(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(
@@ -66,14 +65,14 @@ class _BodyState extends State<Body> {
                         (index) => buildDot(index: index),
                       ),
                     ),
-                    Spacer(flex: 3),
+                    const Spacer(flex: 3),
                     DefaultButton(
-                      text: "Continue",
+                      text: "Continuar",
                       press: () {
-                        Navigator.pushNamed(context, SignInScreen.routeName);
+                        Navigator.pushNamed(context, HomeScreen.routeName);
                       },
                     ),
-                    Spacer(),
+                    const Spacer(),
                   ],
                 ),
               ),
@@ -87,11 +86,11 @@ class _BodyState extends State<Body> {
   AnimatedContainer buildDot({int? index}) {
     return AnimatedContainer(
       duration: kAnimationDuration,
-      margin: EdgeInsets.only(right: 5),
+      margin: const EdgeInsets.only(right: 5),
       height: 6,
       width: currentPage == index ? 20 : 6,
       decoration: BoxDecoration(
-        color: currentPage == index ? kPrimaryColor : Color(0xFFD8D8D8),
+        color: currentPage == index ? kPrimaryColor : const Color(0xFFD8D8D8),
         borderRadius: BorderRadius.circular(3),
       ),
     );

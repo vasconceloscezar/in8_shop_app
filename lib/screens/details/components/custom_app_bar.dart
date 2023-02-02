@@ -5,9 +5,7 @@ import 'package:e_commerce_app/constants.dart';
 import '../../../size_config.dart';
 
 class CustomAppBar extends StatelessWidget {
-  final double rating;
-
-  const CustomAppBar({super.key, required this.rating});
+  const CustomAppBar({super.key});
 
   // AppBar().preferredSize.height provide us the height that appy on our app bar
   Size get preferredSize => Size.fromHeight(AppBar().preferredSize.height);
@@ -41,25 +39,12 @@ class CustomAppBar extends StatelessWidget {
             ),
             const Spacer(),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(14),
-              ),
-              child: Row(
-                children: [
-                  Text(
-                    "$rating",
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  const SizedBox(width: 5),
-                  SvgPicture.asset("assets/icons/Star Icon.svg"),
-                ],
-              ),
-            )
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(14),
+                )),
           ],
         ),
       ),
