@@ -24,7 +24,9 @@ flutter run
 > ## Project Decisions <a name="project-decisions"></a>
 To kickstart the project, I'm using [this repo](https://github.com/abuanwar072/E-commerce-Complete-Flutter-UI) as a boilerplate.
 
+The boilerplate provides a Splash screen a Home Screen and a Cart Screen, but all of them lacks funcionality. 
 
+I started by fetching product data on the Splash Screen, and storing the info on an `ProductStore` that will be used as a [Provider](./providers/) 
 
 > ## Project Dependencies <a name="project-dependencies"></a>
 
