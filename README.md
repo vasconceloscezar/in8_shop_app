@@ -32,3 +32,4 @@ To kickstart the project, I'm using [this repo](https://github.com/abuanwar072/E
 A few dependencies were used in this project, some are worth mentioning:
 - [Flutter SVG](https://pub.dev/packages/flutter_svg) for showing svgs.
 - [Provider](https://pub.dev/packages/provider), for our state management.
+- [Http](https://pub.dev/packages/http), for fetching data.
