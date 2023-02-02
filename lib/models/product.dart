@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
 
 class Product {
-  final int id;
-  final String title, description;
+  final String id, description, name;
   final List<String> images;
   final List<Color> colors;
-  final double rating, price;
-  final bool isFavourite, isPopular;
+  final double price, discountValue;
+  final bool hasDiscount, isPopular;
 
   Product({
     required this.id,
     required this.images,
     required this.colors,
-    this.rating = 0.0,
-    this.isFavourite = false,
-    this.isPopular = false,
-    required this.title,
-    required this.price,
     required this.description,
+    required this.price,
+    required this.name,
+    this.discountValue = 0.0,
+    this.hasDiscount = false,
+    this.isPopular = false,
   });
 }
 
@@ -25,7 +24,7 @@ class Product {
 
 List<Product> demoProducts = [
   Product(
-    id: 1,
+    id: '1',
     images: [
       "assets/images/ps4_console_white_1.png",
       "assets/images/ps4_console_white_2.png",
@@ -38,15 +37,14 @@ List<Product> demoProducts = [
       const Color(0xFFDECB9C),
       Colors.white,
     ],
-    title: "Wireless Controller for PS4™",
+    name: "Wireless Controller for PS4™",
     price: 64.99,
     description: description,
-    rating: 4.8,
-    isFavourite: true,
+    discountValue: 4.8,
     isPopular: true,
   ),
   Product(
-    id: 2,
+    id: '2',
     images: [
       "assets/images/Image Popular Product 2.png",
     ],
@@ -56,14 +54,14 @@ List<Product> demoProducts = [
       const Color(0xFFDECB9C),
       Colors.white,
     ],
-    title: "Nike Sport White - Man Pant",
+    name: "Nike Sport White - Man Pant",
     price: 50.5,
     description: description,
-    rating: 4.1,
+    discountValue: 4.1,
     isPopular: true,
   ),
   Product(
-    id: 3,
+    id: '3',
     images: [
       "assets/images/glap.png",
     ],
@@ -73,15 +71,14 @@ List<Product> demoProducts = [
       const Color(0xFFDECB9C),
       Colors.white,
     ],
-    title: "Gloves XC Omega - Polygon",
+    name: "Gloves XC Omega - Polygon",
     price: 36.55,
     description: description,
-    rating: 4.1,
-    isFavourite: true,
+    discountValue: 4.1,
     isPopular: true,
   ),
   Product(
-    id: 4,
+    id: '4',
     images: [
       "assets/images/wireless headset.png",
     ],
@@ -91,11 +88,10 @@ List<Product> demoProducts = [
       const Color(0xFFDECB9C),
       Colors.white,
     ],
-    title: "Logitech Head",
+    name: "Logitech Head",
     price: 20.20,
     description: description,
-    rating: 4.1,
-    isFavourite: true,
+    discountValue: 4.1,
   ),
 ];
 

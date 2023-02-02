@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:e_commerce_app/components/default_button.dart';
-import 'package:e_commerce_app/models/Product.dart';
+import 'package:e_commerce_app/models/product.dart';
 import 'package:e_commerce_app/size_config.dart';
 
 import 'color_dots.dart';
@@ -27,7 +27,7 @@ class Body extends StatelessWidget {
                 pressOnSeeMore: () {},
               ),
               TopRoundedContainer(
-                color: Color(0xFFF6F7F9),
+                color: const Color(0xFFF6F7F9),
                 child: Column(
                   children: [
                     ColorDots(product: product),
