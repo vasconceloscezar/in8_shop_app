@@ -25,6 +25,8 @@ class Product {
 }
 
 class ProductsPage extends StatefulWidget {
+  const ProductsPage({super.key});
+
   @override
   _ProductsPageState createState() => _ProductsPageState();
 }
