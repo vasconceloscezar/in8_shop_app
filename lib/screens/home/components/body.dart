@@ -14,7 +14,6 @@ class Body extends StatelessWidget {
       const HomeHeader(),
       SizedBox(height: getProportionateScreenWidth(20)),
       const Flexible(child: ProductsList()),
-      SizedBox(height: getProportionateScreenWidth(30))
     ]);
   }
 }
