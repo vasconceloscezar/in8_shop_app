@@ -3,7 +3,7 @@ import 'package:e_commerce_app/components/default_button.dart';
 import 'package:e_commerce_app/models/product.dart';
 import 'package:e_commerce_app/size_config.dart';
 
-import 'color_dots.dart';
+import 'quantity_counter.dart';
 import 'product_description.dart';
 import 'top_rounded_container.dart';
 import 'product_images.dart';
@@ -30,7 +30,7 @@ class Body extends StatelessWidget {
                 color: const Color(0xFFF6F7F9),
                 child: Column(
                   children: [
-                    ColorDots(product: product),
+                    QuantityCounter(product: product),
                     TopRoundedContainer(
                       color: Colors.white,
                       child: Padding(
@@ -41,7 +41,7 @@ class Body extends StatelessWidget {
                           top: getProportionateScreenWidth(15),
                         ),
                         child: DefaultButton(
-                          text: "Add To Cart",
+                          text: "Comprar",
                           press: () {},
                         ),
                       ),
