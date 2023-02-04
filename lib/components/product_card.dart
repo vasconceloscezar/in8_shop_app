@@ -86,7 +86,7 @@ class ProductCard extends StatelessWidget {
                         shape: BoxShape.circle,
                       ),
                       child: SvgPicture.asset(
-                        "assets/icons/Cart Icon.svg",
+                        "assets/icons/Cart_Icon.svg",
                         color: const Color(0xFFFF4848),
                       ),
                     ),
