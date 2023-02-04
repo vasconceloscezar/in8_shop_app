@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:e_commerce_app/components/product_card.dart';
 import 'package:provider/provider.dart';
 
-import '../../../size_config.dart';
-
 class ProductsList extends StatelessWidget {
   const ProductsList({super.key});
 
@@ -12,17 +10,12 @@ class ProductsList extends StatelessWidget {
   Widget build(BuildContext context) {
     final products =
         Provider.of<ProductProvider>(context, listen: true).products;
-    return Column(
+    return GridView.count(
+      shrinkWrap: true,
+      crossAxisCount: 2,
+      crossAxisSpacing: 10,
       children: [
-        SizedBox(height: getProportionateScreenWidth(20)),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Column(
-            children: [
-              ...products.map((product) => ProductCard(product: product)),
-            ],
-          ),
-        )
+        ...products.map((product) => ProductCard(product: product)),
       ],
     );
   }
