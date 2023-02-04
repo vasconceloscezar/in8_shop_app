@@ -1,6 +1,6 @@
+import 'package:e_commerce_app/screens/cart/cart_screen.dart';
+import 'package:e_commerce_app/screens/home/components/icon_btn_with_counter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:e_commerce_app/constants.dart';
 
 import '../../../size_config.dart';
 
@@ -14,37 +14,21 @@ class CustomAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding:
-            EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+        padding: EdgeInsets.symmetric(
+            horizontal: getProportionateScreenWidth(20),
+            vertical: getProportionateScreenHeight(10)),
         child: Row(
           children: [
-            SizedBox(
-              height: getProportionateScreenWidth(40),
-              width: getProportionateScreenWidth(40),
-              child: TextButton(
-                style: TextButton.styleFrom(
-                  foregroundColor: kPrimaryColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(60),
-                  ),
-                  backgroundColor: Colors.white,
-                  padding: EdgeInsets.zero,
-                ),
-                onPressed: () => Navigator.pop(context),
-                child: SvgPicture.asset(
-                  "assets/icons/Back ICon.svg",
-                  height: 15,
-                ),
-              ),
-            ),
+            IconBtnWithCounter(
+                backgroundColor: Colors.white,
+                svgSrc: 'assets/icons/Back_Icon.svg',
+                press: () => Navigator.pop(context)),
             const Spacer(),
-            Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(14),
-                )),
+            IconBtnWithCounter(
+                backgroundColor: Colors.white,
+                svgSrc: 'assets/icons/Cart_Icon.svg',
+                press: () => Navigator.pushNamed(context, CartScreen.routeName),
+                numOfitem: 1)
           ],
         ),
       ),
