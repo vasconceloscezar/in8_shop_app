@@ -10,77 +10,91 @@ class ProductCard extends StatelessWidget {
   const ProductCard({
     Key? key,
     this.width = 140,
-    this.aspectRetio = 1.02,
+    this.aspectRatio = 1.02,
     required this.product,
   }) : super(key: key);
 
-  final double width, aspectRetio;
+  final double width, aspectRatio;
   final Product product;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: getProportionateScreenWidth(width),
-      child: GestureDetector(
-        onTap: () => Navigator.pushNamed(
-          context,
-          DetailsScreen.routeName,
-          arguments: ProductDetailsArguments(product: product),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AspectRatio(
-              aspectRatio: 1.02,
-              child: Container(
-                padding: EdgeInsets.all(getProportionateScreenWidth(20)),
-                decoration: BoxDecoration(
-                  color: kSecondaryColor.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Hero(
-                  tag: product.id.toString(),
-                  child: Image.network(product.images[0]),
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              product.name,
-              style: const TextStyle(color: Colors.black),
-              maxLines: 2,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "\$${product.price}",
-                  style: TextStyle(
-                    fontSize: getProportionateScreenWidth(18),
-                    fontWeight: FontWeight.w600,
-                    color: kPrimaryColor,
-                  ),
-                ),
-                InkWell(
-                  borderRadius: BorderRadius.circular(50),
-                  onTap: () {},
+    return Padding(
+      padding: EdgeInsets.all(getProportionateScreenWidth(10)),
+      child: SizedBox(
+        width: getProportionateScreenWidth(width),
+        child: GestureDetector(
+          onTap: () => Navigator.pushNamed(
+            context,
+            DetailsScreen.routeName,
+            arguments: ProductDetailsArguments(product: product),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                  child: Align(
+                alignment: Alignment.center,
+                child: AspectRatio(
+                  aspectRatio: 4 / 3,
                   child: Container(
-                    padding: EdgeInsets.all(getProportionateScreenWidth(8)),
-                    height: getProportionateScreenWidth(28),
-                    width: getProportionateScreenWidth(28),
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.all(getProportionateScreenWidth(5)),
                     decoration: BoxDecoration(
                       color: kSecondaryColor.withOpacity(0.1),
-                      shape: BoxShape.circle,
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    child: SvgPicture.asset(
-                      "assets/icons/Heart Icon_2.svg",
-                      color: const Color(0xFFFF4848),
+                    child: Hero(
+                      tag: product.id.toString(),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: Image.network(
+                          product.images[0],
+                          fit: BoxFit.fill,
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ],
-            )
-          ],
+              )),
+              SizedBox(height: getProportionateScreenHeight(20)),
+              Text(
+                product.name,
+                style: const TextStyle(color: Colors.black),
+                maxLines: 1,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "R\$${product.price}",
+                    style: TextStyle(
+                      fontSize: getProportionateScreenWidth(16),
+                      fontWeight: FontWeight.w600,
+                      color: kPrimaryColor,
+                    ),
+                  ),
+                  InkWell(
+                    borderRadius: BorderRadius.circular(50),
+                    onTap: () {},
+                    child: Container(
+                      padding: EdgeInsets.all(getProportionateScreenWidth(5)),
+                      height: getProportionateScreenWidth(28),
+                      width: getProportionateScreenWidth(28),
+                      decoration: BoxDecoration(
+                        color: kSecondaryColor.withOpacity(0.1),
+                        shape: BoxShape.circle,
+                      ),
+                      child: SvgPicture.asset(
+                        "assets/icons/Cart Icon.svg",
+                        color: const Color(0xFFFF4848),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
