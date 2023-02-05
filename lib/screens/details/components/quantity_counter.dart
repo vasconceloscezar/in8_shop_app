@@ -5,33 +5,19 @@ import 'package:e_commerce_app/models/product.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
-class QuantityCounter extends StatefulWidget {
+class QuantityCounter extends StatelessWidget {
   const QuantityCounter({
     Key? key,
     required this.product,
+    required this.quantity,
+    required this.add,
+    required this.remove,
   }) : super(key: key);
 
+  final int quantity;
   final Product product;
-
-  @override
-  State<QuantityCounter> createState() => _QuantityCounterState();
-}
-
-class _QuantityCounterState extends State<QuantityCounter> {
-  int _quantity = 1;
-  void add() {
-    setState(() {
-      _quantity += 1;
-    });
-  }
-
-  void remove() {
-    setState(() {
-      if (_quantity <= 1) return;
-      _quantity -= 1;
-    });
-  }
-
+  final GestureTapCallback add;
+  final GestureTapCallback remove;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -54,7 +40,7 @@ class _QuantityCounterState extends State<QuantityCounter> {
           ),
           SizedBox(width: getProportionateScreenWidth(10)),
           Text(
-            "$_quantity",
+            "$quantity",
             style: TextStyle(
               fontSize: getProportionateScreenWidth(16),
               fontWeight: FontWeight.w600,

@@ -1,6 +1,8 @@
+import 'package:e_commerce_app/providers/cart_provider.dart';
 import 'package:e_commerce_app/screens/cart/cart_screen.dart';
 import 'package:e_commerce_app/screens/home/components/icon_btn_with_counter.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../size_config.dart';
 
@@ -12,6 +14,8 @@ class CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cart = Provider.of<CartProvider>(context, listen: true);
+
     return SafeArea(
       child: Padding(
         padding: EdgeInsets.symmetric(
@@ -28,7 +32,7 @@ class CustomAppBar extends StatelessWidget {
                 backgroundColor: Colors.white,
                 svgSrc: 'assets/icons/Cart_Icon.svg',
                 press: () => Navigator.pushNamed(context, CartScreen.routeName),
-                numOfitem: 1)
+                numOfitem: cart.totalItems)
           ],
         ),
       ),
