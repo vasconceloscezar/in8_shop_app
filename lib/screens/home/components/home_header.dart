@@ -1,6 +1,8 @@
 import 'package:e_commerce_app/constants.dart';
+import 'package:e_commerce_app/providers/cart_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce_app/screens/cart/cart_screen.dart';
+import 'package:provider/provider.dart';
 
 import '../../../size_config.dart';
 import 'icon_btn_with_counter.dart';
@@ -13,6 +15,7 @@ class HomeHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var cartProvider = Provider.of<CartProvider>(context, listen: true);
     return Padding(
       padding:
           EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
@@ -24,12 +27,7 @@ class HomeHeader extends StatelessWidget {
             backgroundColor: kSecondaryColor.withOpacity(0.1),
             svgSrc: "assets/icons/Cart_Icon.svg",
             press: () => Navigator.pushNamed(context, CartScreen.routeName),
-          ),
-          IconBtnWithCounter(
-            backgroundColor: kSecondaryColor.withOpacity(0.1),
-            svgSrc: "assets/icons/Bell.svg",
-            numOfitem: 3,
-            press: () {},
+            numOfitem: cartProvider.totalItems,
           ),
         ],
       ),
