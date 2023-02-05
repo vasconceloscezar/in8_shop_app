@@ -1,6 +1,5 @@
 import 'package:e_commerce_app/apis/e_commerce_api.dart';
 import 'package:e_commerce_app/providers/product_provider.dart';
-import 'package:e_commerce_app/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce_app/screens/splash/components/body.dart';
 import 'package:e_commerce_app/size_config.dart';
@@ -20,10 +19,9 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     SplashScreen.api.loadAllProducts().then((products) {
-      Provider.of<ProductProvider>(context, listen: false).products = products;
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
-      );
+      var productProvider =
+          Provider.of<ProductProvider>(context, listen: false);
+      productProvider.addProducts(products);
     });
   }
 
