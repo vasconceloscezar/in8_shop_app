@@ -8,8 +8,8 @@ class ProductProvider with ChangeNotifier {
 
   UnmodifiableListView<Product> get products => UnmodifiableListView(_products);
 
-  set products(List<Product> value) {
-    _products = value;
+  void addProducts(List<Product> products) {
+    _products = products;
     notifyListeners();
   }
 }
