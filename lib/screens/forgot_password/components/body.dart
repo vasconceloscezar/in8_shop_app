@@ -34,7 +34,7 @@ class Body extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: SizeConfig.screenHeight * 0.1),
-              ForgotPassForm(),
+              const ForgotPassForm(),
             ],
           ),
         ),
@@ -44,6 +44,8 @@ class Body extends StatelessWidget {
 }
 
 class ForgotPassForm extends StatefulWidget {
+  const ForgotPassForm({super.key});
+
   @override
   _ForgotPassFormState createState() => _ForgotPassFormState();
 }
@@ -72,7 +74,7 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
                   errors.remove(kInvalidEmailError);
                 });
               }
-              return null;
+              return;
             },
             validator: (value) {
               if (value!.isEmpty && !errors.contains(kEmailNullError)) {
