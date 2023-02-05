@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/providers/cart_provider.dart';
 import 'package:e_commerce_app/routes.dart';
 import 'package:e_commerce_app/screens/splash/splash_screen.dart';
 import 'package:e_commerce_app/providers/product_provider.dart';
@@ -15,8 +16,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => ProductProvider(),
+    return MultiProvider(
+      providers: [
+        Provider<ProductProvider>(create: (context) => ProductProvider()),
+        Provider<CartProvider>(create: (context) => CartProvider())
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'IN8 Shop',
