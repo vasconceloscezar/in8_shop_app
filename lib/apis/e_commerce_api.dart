@@ -21,8 +21,9 @@ class ApiIN8 {
         description: json['description']);
   }
 
-  Future<List<Product>> loadAllProducts() async {
-    var productsURL = Uri.parse('$apiURL/products');
+  Future<List<Product>> loadAllProducts(ProductFilters filters) async {
+    var filtersUrl = makeProductFiltersURL(filters);
+    var productsURL = Uri.parse('$apiURL/products$filtersUrl');
     final response = await http.get(productsURL);
     if (response.statusCode == 200) {
       final productsJson = json.decode(response.body);
@@ -32,6 +33,20 @@ class ApiIN8 {
     } else {
       throw Exception('Failed to load products');
     }
+  }
+
+  String makeProductFiltersURL(ProductFilters filters) {
+    var filterURL = '?';
+    if (filters.id != '') {
+      filterURL += 'id${filters.id}&';
+    }
+    if (filters.name != '') {
+      filterURL += 'name${filters.name}&';
+    }
+    if (filters.category != '') {
+      filterURL += 'category${filters.category}';
+    }
+    return filterURL;
   }
 
   Future<String> signUp(User userData) async {
@@ -78,4 +93,12 @@ class ApiIN8 {
       throw Exception('Failed to login');
     }
   }
+}
+
+class ProductFilters {
+  String? name;
+  String? id;
+  String? category;
+
+  ProductFilters({this.name = '', this.id = '', this.category = ''});
 }

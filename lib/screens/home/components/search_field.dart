@@ -20,18 +20,6 @@ class SearchField extends StatelessWidget {
       child: TextFieldDebouced(
           hintText: "Procurar produto",
           debouncedCallback: (String value) => debugPrint(value)),
-      // child: TextField(
-      //   onChanged: (value) => debugPrint(value),
-      //   decoration: InputDecoration(
-      //       contentPadding: EdgeInsets.symmetric(
-      //           horizontal: getProportionateScreenWidth(20),
-      //           vertical: getProportionateScreenWidth(9)),
-      //       border: InputBorder.none,
-      //       focusedBorder: InputBorder.none,
-      //       enabledBorder: InputBorder.none,
-      //       hintText: "Search product",
-      //       prefixIcon: const Icon(Icons.search)),
-      // ),
     );
   }
 }
