@@ -10,11 +10,6 @@ class ProductProvider with ChangeNotifier {
 
   UnmodifiableListView<Product> get products => UnmodifiableListView(_products);
 
-  void addProducts(List<Product> products) {
-    _products = products;
-    notifyListeners();
-  }
-
   Future<void> fetchProducts(ProductFilters filters) async {
     final products = await _api.loadAllProducts(filters);
     _products = products;

@@ -11,7 +11,6 @@ class ApiIN8 {
   String apiURL = 'http://10.0.2.2:3000/api';
 
   Product convertProductFromJson(Map<String, dynamic> json) {
-    debugPrint(json['name']);
     return Product(
         id: json['id'],
         name: json['name'],
@@ -27,6 +26,8 @@ class ApiIN8 {
     final response = await http.get(productsURL);
     if (response.statusCode == 200) {
       final productsJson = json.decode(response.body);
+      debugPrint('Loaded ${productsJson['products'].length} products');
+
       var parsedProducts = productsJson['products']
           .map((productJson) => convertProductFromJson(productJson));
       return parsedProducts.cast<Product>().toList();
@@ -36,7 +37,7 @@ class ApiIN8 {
   }
 
   String makeProductFiltersURL(ProductFilters filters) {
-    var filterURL = '?';
+    var filterURL = '?limit=300&';
     if (filters.id != '') {
       filterURL += 'id=${filters.id}&';
     }
