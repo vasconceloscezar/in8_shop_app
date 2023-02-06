@@ -11,7 +11,6 @@ class ApiIN8 {
   String apiURL = 'http://10.0.2.2:3000/api';
 
   Product convertProductFromJson(Map<String, dynamic> json) {
-    debugPrint(json['name']);
     return Product(
         id: json['id'],
         name: json['name'],
@@ -21,17 +20,34 @@ class ApiIN8 {
         description: json['description']);
   }
 
-  Future<List<Product>> loadAllProducts() async {
-    var productsURL = Uri.parse('$apiURL/products');
+  Future<List<Product>> loadAllProducts(ProductFilters filters) async {
+    var filtersUrl = makeProductFiltersURL(filters);
+    var productsURL = Uri.parse('$apiURL/products$filtersUrl');
     final response = await http.get(productsURL);
     if (response.statusCode == 200) {
       final productsJson = json.decode(response.body);
+      debugPrint('Loaded ${productsJson['products'].length} products');
+
       var parsedProducts = productsJson['products']
           .map((productJson) => convertProductFromJson(productJson));
       return parsedProducts.cast<Product>().toList();
     } else {
       throw Exception('Failed to load products');
     }
+  }
+
+  String makeProductFiltersURL(ProductFilters filters) {
+    var filterURL = '?limit=300&';
+    if (filters.id != '') {
+      filterURL += 'id=${filters.id}&';
+    }
+    if (filters.name != '') {
+      filterURL += 'name=${filters.name}&';
+    }
+    if (filters.category != '') {
+      filterURL += 'category=${filters.category}';
+    }
+    return filterURL;
   }
 
   Future<String> signUp(User userData) async {
@@ -78,4 +94,12 @@ class ApiIN8 {
       throw Exception('Failed to login');
     }
   }
+}
+
+class ProductFilters {
+  String? name;
+  String? id;
+  String? category;
+
+  ProductFilters({this.name = '', this.id = '', this.category = ''});
 }

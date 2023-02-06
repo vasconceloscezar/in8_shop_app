@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   static String routeName = "/splash";
-  static ApiIN8 api = ApiIN8();
   const SplashScreen({super.key});
 
   @override
@@ -18,11 +17,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    SplashScreen.api.loadAllProducts().then((products) {
-      var productProvider =
-          Provider.of<ProductProvider>(context, listen: false);
-      productProvider.addProducts(products);
-    });
+    Provider.of<ProductProvider>(context, listen: false)
+        .fetchProducts(ProductFilters());
   }
 
   @override
