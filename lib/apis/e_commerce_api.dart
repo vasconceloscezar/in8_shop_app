@@ -38,13 +38,13 @@ class ApiIN8 {
   String makeProductFiltersURL(ProductFilters filters) {
     var filterURL = '?';
     if (filters.id != '') {
-      filterURL += 'id${filters.id}&';
+      filterURL += 'id=${filters.id}&';
     }
     if (filters.name != '') {
-      filterURL += 'name${filters.name}&';
+      filterURL += 'name=${filters.name}&';
     }
     if (filters.category != '') {
-      filterURL += 'category${filters.category}';
+      filterURL += 'category=${filters.category}';
     }
     return filterURL;
   }
