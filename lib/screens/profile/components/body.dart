@@ -38,11 +38,11 @@ class Body extends StatelessWidget {
           const SizedBox(height: 20),
           Text('Olá ${userProvider.getUserName()}'),
           const SizedBox(height: 20),
-          ProfileMenu(
-            text: "Minha Conta",
-            icon: "assets/icons/User Icon.svg",
-            press: () => {},
-          ),
+          // ProfileMenu(
+          //   text: "Minha Conta",
+          //   icon: "assets/icons/User Icon.svg",
+          //   press: () => {},
+          // ),
           ProfileMenu(
             text: "Minhas Compras",
             icon: "assets/icons/Bill Icon.svg",
