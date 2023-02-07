@@ -1,5 +1,6 @@
 import 'package:e_commerce_app/providers/cart_provider.dart';
 import 'package:e_commerce_app/providers/user_provider.dart';
+import 'package:e_commerce_app/screens/checkout_success/checkout_success_screen.dart';
 import 'package:e_commerce_app/screens/sign_in/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce_app/components/default_button.dart';
@@ -11,13 +12,21 @@ class CheckoutCard extends StatelessWidget {
   const CheckoutCard({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final totalPrice =
-        Provider.of<CartProvider>(context, listen: true).totalPrice;
+    final cartProvider = Provider.of<CartProvider>(context, listen: true);
     final userProvider = Provider.of<UserProvider>(context, listen: false);
 
-    void checkoutCart() {
+    void checkoutCart() async {
       if (!userProvider.isUserLoggedIn()) {
         Navigator.pushNamed(context, SignInScreen.routeName);
+      } else {
+        debugPrint('Buying items...');
+        var bought = cartProvider.buyItems(
+            userProvider.accessToken!, userProvider.currentUser);
+        if (await bought) {
+          cartProvider.clearCart();
+          debugPrint('Items purchased.');
+          Navigator.pushNamed(context, CheckoutSuccessScreen.routeName);
+        }
       }
     }
 
@@ -55,7 +64,8 @@ class CheckoutCard extends StatelessWidget {
                     text: "Total:\n",
                     children: [
                       TextSpan(
-                        text: "R\$ ${totalPrice > 0 ? totalPrice : 0}",
+                        text:
+                            "R\$ ${cartProvider.totalPrice > 0 ? cartProvider.totalPrice : 0}",
                         style:
                             const TextStyle(fontSize: 16, color: Colors.black),
                       ),
