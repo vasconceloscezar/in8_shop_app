@@ -97,9 +97,15 @@ class ApiIN8 {
 
   Future<bool> purchase(Cart cart, User user, String accessToken) async {
     var purchaseURL = Uri.parse('$apiURL/purchase');
+
     final cartItems = cart.cartItems
         .map((cartItem) => {
-              "productId": cartItem.product.id,
+              "product": {
+                "id": cartItem.product.id,
+                "name": cartItem.product.name,
+                "price": cartItem.product.price,
+                "imageURL": cartItem.product.images[0]
+              },
               "price": cartItem.product.price,
               "quantity": cartItem.quantity
             })
