@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/screens/checkout_success/checkout_success_screen.dart';
 import 'package:flutter/widgets.dart';
 import 'package:e_commerce_app/screens/cart/cart_screen.dart';
 import 'package:e_commerce_app/screens/complete_profile/complete_profile_screen.dart';
@@ -22,4 +23,5 @@ final Map<String, WidgetBuilder> routes = {
   DetailsScreen.routeName: (context) => const DetailsScreen(),
   CartScreen.routeName: (context) => const CartScreen(),
   ProfileScreen.routeName: (context) => const ProfileScreen(),
+  CheckoutSuccessScreen.routeName: (context) => const CheckoutSuccessScreen(),
 };
