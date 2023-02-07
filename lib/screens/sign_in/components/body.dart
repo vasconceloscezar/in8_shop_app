@@ -1,6 +1,9 @@
+import 'package:e_commerce_app/apis/e_commerce_api.dart';
+import 'package:e_commerce_app/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce_app/components/no_account_text.dart';
 import 'package:e_commerce_app/components/socal_card.dart';
+import 'package:provider/provider.dart';
 import '../../../size_config.dart';
 import 'sign_form.dart';
 

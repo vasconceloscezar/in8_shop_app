@@ -50,7 +50,7 @@ class ApiIN8 {
     return filterURL;
   }
 
-  Future<String> signUp(User userData) async {
+  Future<LoginData> signUp(User userData, String password) async {
     var signUpURL = Uri.parse('$apiURL/signup');
     final response = await http.post(signUpURL,
         headers: <String, String>{
@@ -59,13 +59,11 @@ class ApiIN8 {
         body: jsonEncode(<String, String>{
           'name': userData.name,
           'email': userData.email,
-          'password': userData.password,
+          'password': password,
         }));
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
-      var accessToken = data['accessToken'];
-      debugPrint(accessToken);
-      return accessToken;
+      return LoginData(name: data['name'], accessToken: data['accessToken']);
     } else if (response.statusCode == 401) {
       throw Exception(json.decode(response.body)['error']);
     } else {
@@ -73,27 +71,33 @@ class ApiIN8 {
     }
   }
 
-  Future<String> login(User userData) async {
+  Future<LoginData> login(String email, String password) async {
     var signUpURL = Uri.parse('$apiURL/login');
     final response = await http.post(signUpURL,
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(<String, String>{
-          'email': userData.email,
-          'password': userData.password,
+          'email': email,
+          'password': password,
         }));
+    final data = json.decode(response.body);
     if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      var accessToken = data['accessToken'];
-      debugPrint(accessToken);
-      return accessToken;
+      return LoginData(name: data['name'], accessToken: data['accessToken']);
     } else if (response.statusCode == 401) {
-      throw Exception('Invalid login credentials.');
+      throw Exception('Email ou senha incorretos.');
+    } else if (response.statusCode == 400) {
+      throw Exception(data['error']);
     } else {
-      throw Exception('Failed to login');
+      throw Exception('Confira suas credenciais, problema ao logar.');
     }
   }
+}
+
+class LoginData {
+  String name;
+  String accessToken;
+  LoginData({required this.name, required this.accessToken});
 }
 
 class ProductFilters {

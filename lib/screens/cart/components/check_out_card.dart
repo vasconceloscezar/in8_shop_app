@@ -1,4 +1,6 @@
 import 'package:e_commerce_app/providers/cart_provider.dart';
+import 'package:e_commerce_app/providers/user_provider.dart';
+import 'package:e_commerce_app/screens/sign_in/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce_app/components/default_button.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +13,13 @@ class CheckoutCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final totalPrice =
         Provider.of<CartProvider>(context, listen: true).totalPrice;
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    void checkoutCart() {
+      if (!userProvider.isUserLoggedIn()) {
+        Navigator.pushNamed(context, SignInScreen.routeName);
+      }
+    }
 
     return Container(
       padding: EdgeInsets.symmetric(
@@ -56,8 +65,8 @@ class CheckoutCard extends StatelessWidget {
                 SizedBox(
                   width: getProportionateScreenWidth(190),
                   child: DefaultButton(
-                    text: "Check Out",
-                    press: () {},
+                    text: "Continuar",
+                    press: () => checkoutCart(),
                   ),
                 ),
               ],

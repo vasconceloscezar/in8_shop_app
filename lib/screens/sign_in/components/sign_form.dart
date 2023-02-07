@@ -1,9 +1,11 @@
+import 'package:e_commerce_app/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce_app/components/custom_surfix_icon.dart';
 import 'package:e_commerce_app/components/form_error.dart';
 import 'package:e_commerce_app/helper/keyboard.dart';
 import 'package:e_commerce_app/screens/forgot_password/forgot_password_screen.dart';
 import 'package:e_commerce_app/screens/login_success/login_success_screen.dart';
+import 'package:provider/provider.dart';
 
 import '../../../components/default_button.dart';
 import '../../../constants.dart';
@@ -39,8 +41,34 @@ class _SignFormState extends State<SignForm> {
     }
   }
 
+  void resetErrors() {
+    setState(() {
+      errors.clear();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    var userProvider = Provider.of<UserProvider>(context, listen: true);
+
+    logIn() async {
+      resetErrors();
+      if (_formKey.currentState!.validate()) {
+        _formKey.currentState!.save();
+        // if all are valid then go to success screen
+        KeyboardUtil.hideKeyboard(context);
+        // Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+        try {
+          var logged = userProvider.logIn(email!, password!);
+          if (await logged) {
+            Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+          }
+        } catch (e) {
+          addError(error: e.toString());
+        }
+      }
+    }
+
     return Form(
       key: _formKey,
       child: Column(
@@ -76,14 +104,7 @@ class _SignFormState extends State<SignForm> {
           SizedBox(height: getProportionateScreenHeight(20)),
           DefaultButton(
             text: "Continuar",
-            press: () {
-              if (_formKey.currentState!.validate()) {
-                _formKey.currentState!.save();
-                // if all are valid then go to success screen
-                KeyboardUtil.hideKeyboard(context);
-                Navigator.pushNamed(context, LoginSuccessScreen.routeName);
-              }
-            },
+            press: () => logIn(),
           ),
         ],
       ),
