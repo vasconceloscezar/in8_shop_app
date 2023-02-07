@@ -1,8 +1,10 @@
+import 'package:e_commerce_app/providers/user_provider.dart';
+import 'package:e_commerce_app/screens/login_success/login_success_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce_app/components/custom_surfix_icon.dart';
 import 'package:e_commerce_app/components/default_button.dart';
 import 'package:e_commerce_app/components/form_error.dart';
-import 'package:e_commerce_app/screens/complete_profile/complete_profile_screen.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -11,11 +13,12 @@ class SignUpForm extends StatefulWidget {
   const SignUpForm({super.key});
 
   @override
-  _SignUpFormState createState() => _SignUpFormState();
+  State<SignUpForm> createState() => _SignUpFormState();
 }
 
 class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
+  String? firstName;
   String? email;
   String? password;
   String? conformPassword;
@@ -38,12 +41,38 @@ class _SignUpFormState extends State<SignUpForm> {
     }
   }
 
+  void resetErrors({String? error}) {
+    setState(() {
+      errors.clear();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    var userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    void continueForm() async {
+      resetErrors();
+      if (_formKey.currentState!.validate()) {
+        _formKey.currentState!.save();
+        try {
+          var valid = userProvider.signUp(firstName!, email!, password!);
+          if (await valid) {
+            // if all are valid then go to success screen
+            Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+          }
+        } catch (e) {
+          addError(error: e.toString());
+        }
+      }
+    }
+
     return Form(
       key: _formKey,
       child: Column(
         children: [
+          buildFirstNameFormField(),
+          SizedBox(height: getProportionateScreenHeight(30)),
           buildEmailFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
           buildPasswordFormField(),
@@ -52,14 +81,8 @@ class _SignUpFormState extends State<SignUpForm> {
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
-            text: "Continue",
-            press: () {
-              if (_formKey.currentState!.validate()) {
-                _formKey.currentState!.save();
-                // if all are valid then go to success screen
-                Navigator.pushNamed(context, CompleteProfileScreen.routeName);
-              }
-            },
+            text: "Continuar",
+            press: () => continueForm(),
           ),
         ],
       ),
@@ -89,12 +112,39 @@ class _SignUpFormState extends State<SignUpForm> {
         return null;
       },
       decoration: const InputDecoration(
-        labelText: "Confirm Password",
-        hintText: "Re-enter your password",
+        labelText: "Confirme sua senha",
+        hintText: "Digite novamente sua senha",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
+      ),
+    );
+  }
+
+  TextFormField buildFirstNameFormField() {
+    return TextFormField(
+      onSaved: (newValue) => firstName = newValue,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: kNamelNullError);
+        }
+        return;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          addError(error: kNamelNullError);
+          return "";
+        }
+        return null;
+      },
+      decoration: const InputDecoration(
+        labelText: "Nome",
+        hintText: "Informe seu nome",
+        // If  you are using latest version of flutter then lable text and hint text shown like this
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
       ),
     );
   }
@@ -122,8 +172,8 @@ class _SignUpFormState extends State<SignUpForm> {
         return null;
       },
       decoration: const InputDecoration(
-        labelText: "Password",
-        hintText: "Enter your password",
+        labelText: "Senha",
+        hintText: "Informe sua senha",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -156,7 +206,7 @@ class _SignUpFormState extends State<SignUpForm> {
       },
       decoration: const InputDecoration(
         labelText: "Email",
-        hintText: "Enter your email",
+        hintText: "Informe seu email",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,

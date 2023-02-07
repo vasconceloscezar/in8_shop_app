@@ -1,9 +1,13 @@
 import 'product.dart';
 
 class Cart {
-  final List<CartItem> cartItems = [];
+  List<CartItem> cartItems = [];
   int totalItems = 0;
   double totalPrice = 0;
+  Cart(
+      {required this.cartItems,
+      required this.totalPrice,
+      required this.totalItems});
 }
 
 class CartItem {

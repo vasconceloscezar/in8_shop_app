@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 
 import 'components/body.dart';
 
-class LoginSuccessScreen extends StatelessWidget {
-  static String routeName = "/login_success";
+class CheckoutSuccessScreen extends StatelessWidget {
+  static String routeName = "/checkout_success";
 
-  const LoginSuccessScreen({super.key});
+  const CheckoutSuccessScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: const SizedBox(),
-        title: const Text("Logado com Sucesso."),
+        title: const Text("Pedido efetuado!"),
       ),
       body: const Body(),
     );

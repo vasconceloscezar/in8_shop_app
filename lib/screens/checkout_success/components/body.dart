@@ -17,9 +17,9 @@ class Body extends StatelessWidget {
         ),
         SizedBox(height: SizeConfig.screenHeight * 0.08),
         Text(
-          "Você entrou.",
+          "Pedido efetuado com sucesso.",
           style: TextStyle(
-            fontSize: getProportionateScreenWidth(30),
+            fontSize: getProportionateScreenWidth(20),
             fontWeight: FontWeight.bold,
             color: Colors.black,
           ),
@@ -28,7 +28,7 @@ class Body extends StatelessWidget {
         SizedBox(
           width: SizeConfig.screenWidth * 0.6,
           child: DefaultButton(
-            text: "Continuar",
+            text: "Continuar navegando",
             press: () {
               Navigator.pushNamed(context, HomeScreen.routeName);
             },

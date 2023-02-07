@@ -1,10 +1,13 @@
+import 'package:e_commerce_app/apis/e_commerce_api.dart';
 import 'package:e_commerce_app/models/cart.dart';
+import 'package:e_commerce_app/models/user.dart';
 import 'package:flutter/cupertino.dart';
 
 class CartProvider with ChangeNotifier {
   final List<CartItem> _cartItems = [];
   int _totalItems = 0;
   double _totalPrice = 0;
+  final ApiIN8 _api = ApiIN8();
 
   List<CartItem> get cartItems => _cartItems;
 
@@ -55,4 +58,25 @@ class CartProvider with ChangeNotifier {
 
   int get totalItems => _totalItems;
   double get totalPrice => _totalPrice;
+
+  Future<bool> buyItems(String accessToken, User currentUser) async {
+    var cart = Cart(
+        cartItems: _cartItems,
+        totalItems: _totalItems,
+        totalPrice: _totalPrice);
+    try {
+      var purchased = await _api.purchase(cart, currentUser, accessToken);
+      return purchased;
+    } catch (e) {
+      debugPrint(e.toString());
+      debugPrint("Falha na compra.");
+    }
+    return false;
+  }
+
+  clearCart() {
+    _cartItems.clear();
+    _totalItems = 0;
+    _totalPrice = 0;
+  }
 }
