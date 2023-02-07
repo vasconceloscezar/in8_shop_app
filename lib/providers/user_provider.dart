@@ -1,5 +1,4 @@
 import 'package:e_commerce_app/apis/e_commerce_api.dart';
-import 'package:e_commerce_app/models/cart.dart';
 import 'package:e_commerce_app/models/user.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -7,20 +6,22 @@ class UserProvider with ChangeNotifier {
   User? _currentUser;
   String? accessToken = '';
   bool logged = false;
-  String? routeBeforeLogin = '';
 
   final ApiIN8 _api = ApiIN8();
 
   get currentUser => _currentUser;
   set currentUser(user) => _currentUser = user;
 
+  String getUserName() {
+    if (logged && _currentUser != null) {
+      return _currentUser!.name;
+    }
+    return 'Sem Nome.';
+  }
+
   bool isUserLoggedIn() {
     if (accessToken != '' && logged) return true;
     return false;
-  }
-
-  setRouteBeforeLogin(String routeName) {
-    routeBeforeLogin = routeName;
   }
 
   Future<bool> logIn(String email, String password) async {
@@ -44,5 +45,11 @@ class UserProvider with ChangeNotifier {
       return true;
     }
     return false;
+  }
+
+  logOff() {
+    _currentUser = null;
+    logged = false;
+    accessToken = '';
   }
 }

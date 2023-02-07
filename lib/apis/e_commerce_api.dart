@@ -1,5 +1,6 @@
 import 'package:e_commerce_app/models/cart.dart';
 import 'package:e_commerce_app/models/product.dart';
+import 'package:e_commerce_app/models/purchase.dart';
 import 'package:e_commerce_app/models/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:convert';
@@ -34,6 +35,33 @@ class ApiIN8 {
       return parsedProducts.cast<Product>().toList();
     } else {
       throw Exception('Failed to load products');
+    }
+  }
+
+  Purchase convertPurchaseFromJson(Map<String, dynamic> json) {
+    return Purchase(
+        id: json['id'],
+        totalItems: int.parse(json['cart']['totalItems'].toString()),
+        totalPrice: double.parse(json['cart']['totalPrice'].toString()),
+        date: DateTime.parse(json['purchaseDate']));
+  }
+
+  Future<List<Purchase>> loadAllPurchases(String accessToken) async {
+    final headers = {
+      'Content-Type': 'application/json',
+      'x-access-token': accessToken,
+    };
+
+    var purchasesURL = Uri.parse('$apiURL/purchases');
+
+    final response = await http.get(purchasesURL, headers: headers);
+    if (response.statusCode == 200) {
+      final purchasesJson = json.decode(response.body);
+      var parsedPurchases = purchasesJson['purchases']
+          .map((purchasesJson) => convertPurchaseFromJson(purchasesJson));
+      return parsedPurchases.cast<Purchase>().toList();
+    } else {
+      throw Exception('Failed to load purchases');
     }
   }
 
@@ -97,9 +125,15 @@ class ApiIN8 {
 
   Future<bool> purchase(Cart cart, User user, String accessToken) async {
     var purchaseURL = Uri.parse('$apiURL/purchase');
+
     final cartItems = cart.cartItems
         .map((cartItem) => {
-              "productId": cartItem.product.id,
+              "product": {
+                "id": cartItem.product.id,
+                "name": cartItem.product.name,
+                "price": cartItem.product.price,
+                "imageURL": cartItem.product.images[0]
+              },
               "price": cartItem.product.price,
               "quantity": cartItem.quantity
             })

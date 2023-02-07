@@ -1,4 +1,5 @@
 import 'package:e_commerce_app/providers/cart_provider.dart';
+import 'package:e_commerce_app/providers/purchases_provider.dart';
 import 'package:e_commerce_app/providers/user_provider.dart';
 import 'package:e_commerce_app/routes.dart';
 import 'package:e_commerce_app/screens/splash/splash_screen.dart';
@@ -24,7 +25,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<CartProvider>(
             create: (context) => CartProvider()),
         ChangeNotifierProvider<UserProvider>(
-            create: (context) => UserProvider())
+            create: (context) => UserProvider()),
+        ChangeNotifierProvider<PurchasesProvider>(
+            create: (context) => PurchasesProvider())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
