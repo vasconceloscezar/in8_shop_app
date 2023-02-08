@@ -24,10 +24,12 @@ class _SignUpFormState extends State<SignUpForm> {
   String? conformPassword;
   bool remember = false;
   final List<String?> errors = [];
+  bool sendingData = false;
 
   void addError({String? error}) {
     if (!errors.contains(error)) {
       setState(() {
+        sendingData = false;
         errors.add(error);
       });
     }
@@ -47,19 +49,27 @@ class _SignUpFormState extends State<SignUpForm> {
     });
   }
 
+  void toggleSendingData() {
+    setState(() {
+      sendingData = !sendingData;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var userProvider = Provider.of<UserProvider>(context, listen: false);
 
     void continueForm() async {
+      toggleSendingData();
       resetErrors();
       if (_formKey.currentState!.validate()) {
         _formKey.currentState!.save();
         try {
           var valid = userProvider.signUp(firstName!, email!, password!);
           if (await valid) {
+            toggleSendingData();
             // if all are valid then go to success screen
-            Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+            // Navigator.pushNamed(context, LoginSuccessScreen.routeName);
           }
         } catch (e) {
           addError(error: e.toString());
@@ -80,6 +90,19 @@ class _SignUpFormState extends State<SignUpForm> {
           buildConformPassFormField(),
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
+          Visibility(
+              maintainSize: false,
+              maintainAnimation: true,
+              maintainState: true,
+              visible: sendingData,
+              child: Column(
+                children: [
+                  const CircularProgressIndicator(
+                    color: kPrimaryColor,
+                  ),
+                  SizedBox(height: getProportionateScreenHeight(30)),
+                ],
+              )),
           DefaultButton(
             text: "Continuar",
             press: () => continueForm(),
