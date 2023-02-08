@@ -2,6 +2,7 @@ import 'package:e_commerce_app/providers/cart_provider.dart';
 import 'package:e_commerce_app/providers/purchases_provider.dart';
 import 'package:e_commerce_app/providers/user_provider.dart';
 import 'package:e_commerce_app/routes.dart';
+import 'package:e_commerce_app/screens/home/home_screen.dart';
 import 'package:e_commerce_app/screens/splash/splash_screen.dart';
 import 'package:e_commerce_app/providers/product_provider.dart';
 import 'package:e_commerce_app/theme.dart';
@@ -15,7 +16,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -29,12 +29,27 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<PurchasesProvider>(
             create: (context) => PurchasesProvider())
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'IN8 Shop',
-        theme: theme(),
-        initialRoute: SplashScreen.routeName,
-        routes: routes,
+      child: Consumer<UserProvider>(
+        builder: (context, userProvider, child) {
+          return FutureBuilder(
+            future: userProvider.loadPersistedData(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                final user = userProvider;
+                return MaterialApp(
+                  debugShowCheckedModeBanner: false,
+                  title: 'IN8 Shop',
+                  theme: theme(),
+                  initialRoute: user.isUserLoggedIn()
+                      ? HomeScreen.routeName
+                      : SplashScreen.routeName,
+                  routes: routes,
+                );
+              }
+              return Container();
+            },
+          );
+        },
       ),
     );
   }
