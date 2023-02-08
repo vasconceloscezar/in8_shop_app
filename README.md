@@ -1,6 +1,7 @@
 # E-Commerce-App
 
 An E-Commerce Storefront App that consumes the [E-Commerce-API](https://github.com/vasconceloscezar/e-commerce-api) to fetch products and control user login. 
+![Landing Page](https://user-images.githubusercontent.com/97035956/217627728-c5aed821-a613-4169-8f95-9b08e1c48281.png)
 
 
 > ## Table of Contents
