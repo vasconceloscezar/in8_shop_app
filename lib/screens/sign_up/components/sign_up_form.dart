@@ -69,7 +69,7 @@ class _SignUpFormState extends State<SignUpForm> {
           if (await valid) {
             toggleSendingData();
             // if all are valid then go to success screen
-            // Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+            Navigator.pushNamed(context, LoginSuccessScreen.routeName);
           }
         } catch (e) {
           addError(error: e.toString());
