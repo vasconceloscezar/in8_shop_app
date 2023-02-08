@@ -73,9 +73,17 @@ class UserProvider with ChangeNotifier {
     return false;
   }
 
+  deleteUserPersistedData() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('userName');
+    await prefs.remove('userEmail');
+    await prefs.remove('accessToken');
+  }
+
   logOff() {
     _currentUser = null;
     logged = false;
     accessToken = '';
+    deleteUserPersistedData();
   }
 }
