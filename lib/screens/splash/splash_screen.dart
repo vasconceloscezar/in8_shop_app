@@ -1,5 +1,6 @@
 import 'package:e_commerce_app/apis/e_commerce_api.dart';
 import 'package:e_commerce_app/providers/product_provider.dart';
+import 'package:e_commerce_app/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce_app/screens/splash/components/body.dart';
 import 'package:e_commerce_app/size_config.dart';
@@ -19,6 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Provider.of<ProductProvider>(context, listen: false)
         .fetchProducts(ProductFilters());
+    Provider.of<UserProvider>(context, listen: false).loadPersistedData();
   }
 
   @override
