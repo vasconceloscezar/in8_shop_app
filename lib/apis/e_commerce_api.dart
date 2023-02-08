@@ -10,7 +10,8 @@ import 'package:http/http.dart' as http;
 class ApiIN8 {
   //When running on localhost, the IP inside the emulator
   //must be 10.0.2.2
-  String apiURL = 'http://10.0.2.2:3000/api';
+  // String apiURL = 'http://10.0.2.2:3000/api';
+  String apiURL = 'https://in8-shop-api.onrender.com/api';
 
   Product convertProductFromJson(Map<String, dynamic> json) {
     return Product(
