@@ -13,7 +13,7 @@ class UserProvider with ChangeNotifier {
   get currentUser => _currentUser;
   set currentUser(user) => _currentUser = user;
 
-  loadPersistedData() async {
+  Future<bool> loadPersistedData() async {
     final prefs = await SharedPreferences.getInstance();
     var persistedUserName = prefs.getString('userName') ?? '';
     var persistedUserEmail = prefs.getString('userEmail') ?? '';
@@ -22,8 +22,10 @@ class UserProvider with ChangeNotifier {
       _currentUser = User(email: persistedUserName, name: persistedUserEmail);
       accessToken = persistedAccessToken;
       logged = true;
+      return true;
     } else {
       logged = false;
+      return false;
     }
   }
 
