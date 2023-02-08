@@ -24,10 +24,12 @@ class _SignFormState extends State<SignForm> {
   String? password;
   bool? remember = false;
   final List<String?> errors = [];
+  bool sendingData = false;
 
   void addError({String? error}) {
     if (!errors.contains(error)) {
       setState(() {
+        sendingData = false;
         errors.add(error);
       });
     }
@@ -47,11 +49,18 @@ class _SignFormState extends State<SignForm> {
     });
   }
 
+  void toggleSendingData() {
+    setState(() {
+      sendingData = !sendingData;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var userProvider = Provider.of<UserProvider>(context, listen: true);
 
     logIn() async {
+      toggleSendingData();
       resetErrors();
       if (_formKey.currentState!.validate()) {
         _formKey.currentState!.save();
@@ -61,6 +70,7 @@ class _SignFormState extends State<SignForm> {
         try {
           var logged = userProvider.logIn(email!, password!);
           if (await logged) {
+            toggleSendingData();
             Navigator.pushNamed(context, LoginSuccessScreen.routeName);
           }
         } catch (e) {
@@ -77,6 +87,19 @@ class _SignFormState extends State<SignForm> {
           SizedBox(height: getProportionateScreenHeight(30)),
           buildPasswordFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
+          Visibility(
+              maintainSize: false,
+              maintainAnimation: true,
+              maintainState: true,
+              visible: sendingData,
+              child: Column(
+                children: [
+                  const CircularProgressIndicator(
+                    color: kPrimaryColor,
+                  ),
+                  SizedBox(height: getProportionateScreenHeight(30)),
+                ],
+              )),
           Row(
             children: [
               Checkbox(
