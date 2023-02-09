@@ -1,5 +1,5 @@
 # IN8 Shop
-[🇺🇸 Check this Readme in en-US](./README-pt_BR.md);
+[Check this Readme in en-US](./README-pt_BR.md);
 
 Um front end para e-commerce que consume a [E-Commerce-API](https://github.com/vasconceloscezar/e-commerce-api) para buscar os produtos e controlar login do usuário. 
 ![Landing Page](https://user-images.githubusercontent.com/97035956/217627728-c5aed821-a613-4169-8f95-9b08e1c48281.png)
