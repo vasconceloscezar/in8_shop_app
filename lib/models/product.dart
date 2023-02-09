@@ -4,7 +4,7 @@ class Product {
   final String id, description, name;
   final List<String> images;
   final List<Color> colors;
-  final double price, discountValue;
+  final double price, discountValue, priceWithDiscount;
   final bool hasDiscount, isPopular;
 
   Product({
@@ -12,6 +12,7 @@ class Product {
     required this.images,
     required this.colors,
     required this.description,
+    required this.priceWithDiscount,
     required this.price,
     required this.name,
     this.discountValue = 0.0,

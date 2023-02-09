@@ -14,13 +14,18 @@ class ApiIN8 {
   String apiURL = 'https://in8-shop-api.onrender.com/api';
 
   Product convertProductFromJson(Map<String, dynamic> json) {
+    var discountValue = double.parse(json['discountValue'].toString());
+    var price = double.parse(json['price'].toString());
     return Product(
         id: json['id'],
         name: json['name'],
-        price: double.parse(json['price'].toString()),
+        price: price,
         images: json['images'] != null ? List.from(json['images']) : [],
         colors: [],
-        description: json['description']);
+        priceWithDiscount: price - (price * discountValue),
+        description: json['description'],
+        hasDiscount: json['hasDiscount'] ? true : false,
+        discountValue: discountValue);
   }
 
   Future<List<Product>> loadAllProducts(ProductFilters filters) async {
