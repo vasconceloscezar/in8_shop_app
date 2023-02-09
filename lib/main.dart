@@ -40,10 +40,9 @@ class MyApp extends StatelessWidget {
                   debugShowCheckedModeBanner: false,
                   title: 'IN8 Shop',
                   theme: theme(),
-                  // initialRoute: user.isUserLoggedIn()
-                  //     ? HomeScreen.routeName
-                  //     : SplashScreen.routeName,
-                  initialRoute: HomeScreen.routeName,
+                  initialRoute: user.isUserLoggedIn()
+                      ? HomeScreen.routeName
+                      : SplashScreen.routeName,
                   routes: routes,
                 );
               }
