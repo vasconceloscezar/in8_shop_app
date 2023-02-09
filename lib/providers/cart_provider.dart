@@ -46,6 +46,10 @@ class CartProvider with ChangeNotifier {
       _cartItems.removeAt(cartItemIndex);
       _totalItems = _cartItems.length;
     }
+    _totalPrice = double.parse(_totalPrice.toStringAsFixed(2));
+    if (_cartItems.isEmpty) {
+      _totalPrice = 0;
+    }
     notifyListeners();
   }
 
