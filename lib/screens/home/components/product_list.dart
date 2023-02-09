@@ -14,6 +14,7 @@ class ProductsList extends StatelessWidget {
       shrinkWrap: true,
       crossAxisCount: 2,
       crossAxisSpacing: 10,
+      mainAxisSpacing: 10,
       children: [
         ...products.map((product) => ProductCard(product: product)),
       ],

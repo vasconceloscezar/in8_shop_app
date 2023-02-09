@@ -42,16 +42,17 @@ class CartCard extends StatelessWidget {
             const SizedBox(height: 10),
             Text.rich(
               TextSpan(
-                text: "R\$${cartItem.product.price}",
+                text:
+                    "R\$${cartItem.product.hasDiscount ? cartItem.product.priceWithDiscount : cartItem.product.price}",
                 style: const TextStyle(
                     fontWeight: FontWeight.w600, color: kPrimaryColor),
                 children: [
                   TextSpan(
                       text: " x ${cartItem.quantity}",
-                      style: Theme.of(context).textTheme.bodyText1),
+                      style: Theme.of(context).textTheme.bodyLarge),
                   TextSpan(
                       text: " = R\$${cartItem.totalItemPrice}",
-                      style: Theme.of(context).textTheme.bodyText1)
+                      style: Theme.of(context).textTheme.bodyLarge)
                 ],
               ),
             ),

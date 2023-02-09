@@ -1,3 +1,5 @@
+import 'package:e_commerce_app/components/product_discount.dart';
+import 'package:e_commerce_app/components/product_price.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce_app/models/product.dart';
 
@@ -39,7 +41,18 @@ class ProductDescription extends StatelessWidget {
             horizontal: getProportionateScreenWidth(20),
             vertical: 10,
           ),
-        )
+          child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ProductPrice(
+                    price: product.price, hasDiscount: product.hasDiscount),
+                ProductDiscount(
+                    priceWithDiscount: product.priceWithDiscount,
+                    price: product.price,
+                    hasDiscount: product.hasDiscount)
+              ]),
+        ),
       ],
     );
   }

@@ -38,10 +38,15 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<CartProvider>(context, listen: true);
+
     void addProductToCart() {
+      var totalItemPrice = widget.product.price * _quantity;
+      if (widget.product.hasDiscount) {
+        totalItemPrice = widget.product.priceWithDiscount * _quantity;
+      }
       var cartItem = CartItem(
           product: widget.product,
-          totalItemPrice: widget.product.price * _quantity,
+          totalItemPrice: totalItemPrice,
           quantity: _quantity);
       cart.addItem(cartItem);
     }
